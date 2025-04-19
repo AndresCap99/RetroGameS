@@ -1,1 +1,1 @@
-// Lógica de navegación y puntaje general
+// Lógica navegación, botón volver, puntaje, inverse
