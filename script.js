@@ -1,4 +1,1 @@
-
-function loadGame(game) {
-  document.getElementById("gameFrame").src = `assets/${game}.html`;
-}
+// Lógica de navegación y puntaje general
