@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Buscaminas Pro - RetroGameX</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom, #0b0b2e, #000010);
+      font-family: Arial, sans-serif;
+      color: #fff;
+      text-align: center;
+    }
+    h1 {
+      margin: 20px 0;
+      color: #00ccff;
+      text-shadow: 0 0 10px #00ccff88;
+    }
+    #game {
+      display: grid;
+      margin: 20px auto;
+      gap: 2px;
+    }
+    .cell {
+      width: 30px;
+      height: 30px;
+      background-color: #222;
+      border: 1px solid #444;
+      font-weight: bold;
+      font-size: 16px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    #controls {
+      margin-top: 10px;
+    }
+    .btn {
+      background: #00ccff;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Buscaminas Pro</h1>
+  <div id="controls">
+    <select id="difficulty" class="btn">
+      <option value="8">Fácil</option>
+      <option value="10">Medio</option>
+      <option value="12">Difícil</option>
+    </select>
+    <button class="btn" onclick="init()">Nuevo juego</button>
+    <button class="btn" onclick="location.href='../index.html'">Volver al menú</button>
+  </div>
+  <div id="game"></div>
+  <script>
+    const game = document.getElementById("game");
+    let gridSize, cells = [], mines = 10;
+
+    function init() {
+      game.innerHTML = "";
+      gridSize = parseInt(document.getElementById("difficulty").value);
+      game.style.gridTemplateColumns = `repeat(${gridSize}, 30px)`;
+      game.style.gridTemplateRows = `repeat(${gridSize}, 30px)`;
+      cells = [];
+      for (let i = 0; i < gridSize * gridSize; i++) {
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        cell.dataset.index = i;
+        cell.addEventListener("click", () => clickCell(i));
+        game.appendChild(cell);
+        cells.push({ mine: false, element: cell, revealed: false, count: 0 });
+      }
+      placeMines();
+    }
+
+    function placeMines() {
+      let placed = 0;
+      while (placed < mines) {
+        const i = Math.floor(Math.random() * cells.length);
+        if (!cells[i].mine) {
+          cells[i].mine = true;
+          placed++;
+        }
+      }
+      for (let i = 0; i < cells.length; i++) {
+        if (!cells[i].mine) {
+          let count = 0;
+          getNeighbors(i).forEach(j => count += cells[j].mine ? 1 : 0);
+          cells[i].count = count;
+        }
+      }
+    }
+
+    function clickCell(index) {
+      const cell = cells[index];
+      if (cell.revealed) return;
+      cell.revealed = true;
+      if (cell.mine) {
+        cell.element.style.backgroundColor = "red";
+        alert("¡Boom! Juego terminado.");
+      } else {
+        cell.element.textContent = cell.count || "";
+        cell.element.style.backgroundColor = "#333";
+        if (cell.count === 0) {
+          getNeighbors(index).forEach(clickCell);
+        }
+      }
+    }
+
+    function getNeighbors(i) {
+      const res = [];
+      const x = i % gridSize, y = Math.floor(i / gridSize);
+      for (let dx = -1; dx <= 1; dx++) {
+        for (let dy = -1; dy <= 1; dy++) {
+          if (dx === 0 && dy === 0) continue;
+          const nx = x + dx, ny = y + dy;
+          if (nx >= 0 && ny >= 0 && nx < gridSize && ny < gridSize) {
+            res.push(ny * gridSize + nx);
+          }
+        }
+      }
+      return res;
+    }
+
+    init();
+  </script>
+</body>
+</html>

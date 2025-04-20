@@ -1,1 +1,78 @@
-<!-- Página principal mockup con tarjetas de juegos -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>RetroGameX</title>
+  <link rel="icon" href="assets/icon.png">
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5em;
+    }
+    .game-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 80%;
+      max-width: 400px;
+    }
+    .card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #222;
+      padding: 16px 24px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px #00ffcc55;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .card:hover {
+      transform: scale(1.03);
+    }
+    .icon {
+      font-size: 1.5rem;
+      margin-right: 16px;
+    }
+    .game-title {
+      flex-grow: 1;
+      font-size: 1.2rem;
+    }
+    .creditos {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <h1>RetroGameX</h1>
+  <div class="game-grid">
+    <div class="card" onclick="location.href='games/snake.html'">
+      <div class="icon">🟩</div>
+      <div class="game-title">Snake</div>
+    </div>
+    <div class="card" onclick="location.href='games/minesweeper.html'">
+      <div class="icon">🧨</div>
+      <div class="game-title">Buscaminas</div>
+    </div>
+    <div class="card" onclick="location.href='games/tetris.html'">
+      <div class="icon">🟧</div>
+      <div class="game-title">Tetris</div>
+    </div>
+  </div>
+  <div class="creditos">Hecho por ACH • 2025</div>
+</body>
+</html>
