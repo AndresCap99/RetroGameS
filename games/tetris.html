@@ -1,12 +1,11 @@
 
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
-<meta charset="utf-8"/>
-<title>Tetris - RetroGameX</title>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<style>
+  <meta charset="UTF-8">
+  <title>Tetris - RetroGameX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
     body {
       margin: 0;
       background-color: #1a1a1a;
@@ -50,20 +49,21 @@
   </style>
 </head>
 <body>
-<h1>Tetris</h1>
-<div class="controls">
-<select id="difficulty">
-<option value="800">Fácil</option>
-<option selected="" value="500">Medio</option>
-<option value="300">Difícil</option>
-</select>
+  <h1>Tetris</h1>
+  <div class="controls">
+    <select id="difficulty">
+      <option value="800">Fácil</option>
+      <option value="500" selected>Medio</option>
+      <option value="300">Difícil</option>
+    </select>
+    <button class="btn" onclick="toggleGravity()"></button>
+    <button class="btn" onclick="startGame()">Iniciar</button>
+    <button class="btn" onclick="window.location.href='mockup_menu_exact_retroGameX.html'">Volver al menú</button>
+  </div>
+  <canvas id="tetris" width="200" height="400"></canvas>
+  <div class="status-bar">Puntaje: <span id="score">0</span></div>
 
-<button class="btn" onclick="startGame()">Iniciar</button>
-<button class="btn" onclick="window.location.href='mockup_menu_exact_retroGameX.html'">Volver al menú</button>
-</div>
-<canvas height="400" id="tetris" width="200"></canvas>
-<div class="status-bar">Puntaje: <span id="score">0</span></div>
-<script>
+  <script>
     const canvas = document.getElementById("tetris");
     const context = canvas.getContext("2d");
     const scoreDisplay = document.getElementById("score");
